@@ -7,6 +7,9 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { useDispatch } from "react-redux";
+import get_all_the_selected_services from "../redux/action"
+
 
 const Services = () => {
     
@@ -22,10 +25,15 @@ const Services = () => {
     { service: "Footmassage", id: 9, selected: false },
   ]);
 
+
+  // hook which helps in calling the redux function to send seleced dervices 
+  const dispatch = useDispatch();
+
   const [services_added, setservices_added] = useState([null]);
 
   // this will add service
   const rerender_pressed = (s) => {
+
     const newdata = services_offered.map((ser) => {
       if (ser.id === s.id) {
         return { ...ser, selected: !ser.selected };
@@ -34,10 +42,23 @@ const Services = () => {
       }
     });
 
+
+    //1) offered serivce array is rerender , is selected wali field is updated ,
+    //2)since service offered  usestate is changed therefore the map function showing the services 
+    //3) WILL RERENDER AND ALL THE SELECTED SERVICES WILL be DISPLAYED WITH GOLDEN BACKGROUD
     setservices_offered(newdata);
 
+    // we are storing the selected items in am array and then in a usestate 
     const selected_services = newdata.filter((service) => service.selected);
-    // console.log("these are the selected services",selected_services)
+
+
+    // we dispatched/ sent all the selected items into the redux(action.js file)  , consider redux as a global variable
+    dispatch(get_all_the_selected_services(selected_services))
+
+    setservices_added(selected_services)
+
+
+
   };
 
   //   usestate to open and close the dropdown menu
@@ -91,6 +112,7 @@ const Services = () => {
 
   return (
     <View>
+
       {/* services dropdown menu button  */}
       <TouchableOpacity
         style={{
@@ -109,6 +131,8 @@ const Services = () => {
         <Text style={{ color: "white", fontSize: 25, fontWeight: "400" }}>
           select services <Icon name="caret-down" size={20} color="#999e9e" />
         </Text>
+
+        {/* these are the individual services items  */}
       </TouchableOpacity>
       <View style={{ height: isdropdown_open ? "auto" : 0 }}>
         {services_offered.map(services_menu)}
