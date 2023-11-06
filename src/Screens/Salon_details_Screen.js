@@ -15,6 +15,7 @@ import Date_And_Time_Picker from "../Components/Date_And_Time_Picker";
 import Slots_Selection from "../Components/Slots_Selection";
 import Services from "../Components/Services";
 import Selected_day_slot_service_component from "../Components/Selected_day_slot_service_component";
+import { useDispatch } from "react-redux";
 
 // getting the width of the screen
 const { width } = Dimensions.get("window");
@@ -31,6 +32,7 @@ const Salon_details_Screen = () => {
 
   // hook for redirecting to different page
   const navigation = useNavigation();
+
 
   // function to set the slides
   const renderItem = ({ item }) => {

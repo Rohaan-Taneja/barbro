@@ -35,6 +35,7 @@ const Slots_Selection = () => {
       setwhich_slot_selected(null);
     } else {
       setwhich_slot_selected(slot.t);
+      
     }
   };
 
@@ -46,8 +47,11 @@ const Slots_Selection = () => {
         select slot
       </Text>
 
+      {/* all the slots list in horizontal scrollable view  */}
       <ScrollView horizontal={true} style={styles.container}>
+
         {slots.map((slot, index) => (
+
           <TouchableOpacity
             style={{
               flexDirection: "column",

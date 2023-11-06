@@ -7,8 +7,8 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { useDispatch } from "react-redux";
-import get_all_the_selected_services from "../redux/action"
+import { useDispatch } from "react-redux/es/exports";
+import {get_all_the_selected_services} from "../redux/actions"
 
 
 const Services = () => {
@@ -25,9 +25,8 @@ const Services = () => {
     { service: "Footmassage", id: 9, selected: false },
   ]);
 
+  const dispatch=useDispatch();
 
-  // hook which helps in calling the redux function to send seleced dervices 
-  const dispatch = useDispatch();
 
   const [services_added, setservices_added] = useState([null]);
 
@@ -51,8 +50,6 @@ const Services = () => {
     // we are storing the selected items in am array and then in a usestate 
     const selected_services = newdata.filter((service) => service.selected);
 
-
-    // we dispatched/ sent all the selected items into the redux(action.js file)  , consider redux as a global variable
     dispatch(get_all_the_selected_services(selected_services))
 
     setservices_added(selected_services)

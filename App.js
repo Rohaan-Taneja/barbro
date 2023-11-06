@@ -7,7 +7,7 @@ import Salon_details_Screen from "./src/Screens/Salon_details_Screen";
 import Header_Component from "./src/Header/Header_Component";
 import Book_Appointment_Screen from "./src/Screens/Book_Appointment_Screen";
 
-
+// screenOptions={{headerStyle: {backgroundColor: 'black',},headerTintColor: '#999e9e',headerTitleStyle: {fontWeight: '900',}}}
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -16,7 +16,7 @@ export default function App() {
     <NavigationContainer>
 
       {/* this is the first route and properties given to header in this route options is applied to every route header */}
-      <Stack.Navigator initialRouteName="login" screenOptions={{headerStyle: {backgroundColor: 'black',},headerTintColor: '#999e9e',headerTitleStyle: {fontWeight: '900',}}} >
+      <Stack.Navigator initialRouteName="login"  >
 
           {/* login page route, will be called from above query */}
         <Stack.Screen name="Login" component={Login_Screen} options={{ headerShown: false }} />

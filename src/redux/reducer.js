@@ -5,7 +5,7 @@ const initial_state = [];
 export const reducer = (state = initial_state, action) => {
   switch (action.type) {
     case all_the_selected_services:
-      return [...state, action.data];
+      return action.data;
 
     default:
       return state;
