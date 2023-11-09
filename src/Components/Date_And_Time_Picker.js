@@ -8,10 +8,18 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Slots_Selection from "./Slots_Selection";
+import { useDispatch } from "react-redux";
+import { get_day } from "../features/getday/getselectedday_Slice";
 
+
+// weekdays list 
 const WeekView = () => {
   const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
+  const dispatch=useDispatch();
+
+
+  // months list 
   const months = [
     "Jan",
     "Feb",
@@ -26,6 +34,7 @@ const WeekView = () => {
     "Nov",
     "Dec",
   ];
+
 
   // when this is true then slots are visible else not visible
   const [isdayselected, setisdayselected] = useState(false);
@@ -57,12 +66,13 @@ const WeekView = () => {
     if (which_day_selected === date.dayOfWeek) {
       setwhich_day_selected(null);
       setisdayselected(false);
+      dispatch(get_day([]))
     } else {
       setwhich_day_selected(date.dayOfWeek);
       setisdayselected(true);
+      dispatch(get_day([date]))
     }
   };
-
   return (
     <View>
       <ScrollView horizontal={true} style={styles.container}>
@@ -146,6 +156,7 @@ const WeekView = () => {
         ))}
       </ScrollView>
 
+      {/* if day is selected then slots are visible else not  */}
       <View
         style={{
           opacity: isdayselected ? 1 : 0,

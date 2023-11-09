@@ -6,17 +6,21 @@ import Login_Screen from "./src/Screens/Login_Screen";
 import Salon_details_Screen from "./src/Screens/Salon_details_Screen";
 import Header_Component from "./src/Header/Header_Component";
 import Book_Appointment_Screen from "./src/Screens/Book_Appointment_Screen";
+import { Provider } from "react-redux";
+import {store} from './src/store/store'
 
-// screenOptions={{headerStyle: {backgroundColor: 'black',},headerTintColor: '#999e9e',headerTitleStyle: {fontWeight: '900',}}}
+
+// 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
+    <Provider store={store}>
 
     <NavigationContainer>
 
       {/* this is the first route and properties given to header in this route options is applied to every route header */}
-      <Stack.Navigator initialRouteName="login"  >
+      <Stack.Navigator initialRouteName="login" screenOptions={{headerStyle: {backgroundColor: 'black',},headerTintColor: '#999e9e',headerTitleStyle: {fontWeight: '900',}}}  >
 
           {/* login page route, will be called from above query */}
         <Stack.Screen name="Login" component={Login_Screen} options={{ headerShown: false }} />
@@ -26,9 +30,11 @@ export default function App() {
 
         {/* salon detail page , will be called when the user click on the salon card */}
         <Stack.Screen name="salon_detail_page" component={Salon_details_Screen} options={{ headerTitle: (props) => <Header_Component /> }}/>
-        <Stack.Screen name="bookingspage" component={Book_Appointment_Screen} options={{ headerTitle:'Priya Village Show' }}/>
+        <Stack.Screen name="bookingspage" component={Book_Appointment_Screen} options={{ headerTitle:'' }}/>
       </Stack.Navigator>
     </NavigationContainer>
+
+    </Provider>
   );
 }
 

@@ -6,6 +6,8 @@ import {
   View,
   ScrollView,
 } from "react-native";
+import { useDispatch } from "react-redux";
+import { get_Slots } from "../features/getslot/getslot_Slice";
 
 const Slots_Selection = () => {
   // contains all the slots
@@ -25,6 +27,9 @@ const Slots_Selection = () => {
     { t: "10 PM", ind: 13 },
   ]);
 
+  const dispatch=useDispatch();
+
+
 
   // usestate to store the selected slot
   const [which_slot_selected, setwhich_slot_selected] = useState(null);
@@ -33,8 +38,10 @@ const Slots_Selection = () => {
   const toggleslot = (slot) => {
     if (slot.t === which_slot_selected) {
       setwhich_slot_selected(null);
+      dispatch(get_Slots([]))
     } else {
       setwhich_slot_selected(slot.t);
+      dispatch(get_Slots([slot.t]))
       
     }
   };

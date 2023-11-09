@@ -12,10 +12,10 @@ import Carousel from "react-native-snap-carousel";
 import Star_Rating from "./Star_Rating";
 import { useNavigation } from "@react-navigation/native";
 import Date_And_Time_Picker from "../Components/Date_And_Time_Picker";
-import Slots_Selection from "../Components/Slots_Selection";
+
 import Services from "../Components/Services";
 import Selected_day_slot_service_component from "../Components/Selected_day_slot_service_component";
-import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 // getting the width of the screen
 const { width } = Dimensions.get("window");
@@ -28,11 +28,17 @@ const images = [
 ];
 
 const Salon_details_Screen = () => {
+  // fetched the seleced services from redux , initall , it is an empty array
+  const selected_services = useSelector((state) => state.service.s_s);
 
+  // fetched the seleced slot from redux , initall , it is an empty array
+  const slot = useSelector((state) => state.slot.s_slots);
+
+  // fetched the seleced date , day  from redux , initall , it is an empty array
+  const date = useSelector((state) => state.dayy.s_day);
 
   // hook for redirecting to different page
   const navigation = useNavigation();
-
 
   // function to set the slides
   const renderItem = ({ item }) => {
@@ -49,7 +55,6 @@ const Salon_details_Screen = () => {
   };
 
   // usestate array to store the services selected
-  
 
   return (
     <View style={styles.outercontainer}>
@@ -83,15 +88,22 @@ const Salon_details_Screen = () => {
 
         {/* address box  */}
         <View>
-          <Text style={{ color: "#999e9e" }}>
-            Radius Gym-Shop No-24/51B
-          </Text>
+          <Text style={{ color: "#999e9e" }}>Radius Gym-Shop No-24/51B</Text>
           <Text style={{ color: "#999e9e", paddingTop: 2, fontSize: 20 }}>
             Unisex
           </Text>
 
-           {/* a line with sadow effect  */}
-          <View style={{width:'100%', borderWidth:0.2 , marginTop:10 ,elevation: 3, shadowColor: "white", shadowRadius:2}}></View>
+          {/* a line with sadow effect  */}
+          <View
+            style={{
+              width: "100%",
+              borderWidth: 0.2,
+              marginTop: 10,
+              elevation: 3,
+              shadowColor: "white",
+              shadowRadius: 2,
+            }}
+          ></View>
         </View>
 
         {/* day selection  */}
@@ -126,50 +138,52 @@ const Salon_details_Screen = () => {
         </View>
 
         <Services />
-        
       </ScrollView>
 
       {/* upr sbb scrollable hai , ye neeche wala bttn , asa a footer kaam karega and fixed raheag  */}
 
-      
       <View
         style={{
-          flexDirection:'row',
+          flexDirection: "row",
           elevation: 10,
           shadowOffset: { height: -3 },
           shadowColor: "white",
           shadowRadius: 2,
         }}
       >
+        {/* this will be visible , when  service , slot and time , all get selected  */}
+        {selected_services.length > 0 && slot.length > 0 && date.length > 0 && (
+          <>
+            <View style={{ width: "50%" }}>
+              <Selected_day_slot_service_component />
+            </View>
 
-        <View style={{width:'50%'}}>
-          <Selected_day_slot_service_component  />
-        </View>
-
-        {/* book appointment button  */}
-        <TouchableOpacity
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            padding: 10,
-            width:'50%'
-          }}
-          onPress={goto_booking_page}
-        >
-          <Text
-            style={{
-              color: "black",
-              fontSize: 20,
-              fontWeight: "900",
-              backgroundColor: "#ddc686",
-              paddingVertical: 10,
-              paddingHorizontal: 15,
-              borderRadius: 15,
-            }}
-          >
-            Book Service
-          </Text>
-        </TouchableOpacity>
+            {/* book appointment button  */}
+            <TouchableOpacity
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                padding: 10,
+                width: "50%",
+              }}
+              onPress={goto_booking_page}
+            >
+              <Text
+                style={{
+                  color: "black",
+                  fontSize: 20,
+                  fontWeight: "900",
+                  backgroundColor: "#ddc686",
+                  paddingVertical: 10,
+                  paddingHorizontal: 15,
+                  borderRadius: 15,
+                }}
+              >
+                Book Service
+              </Text>
+            </TouchableOpacity>
+          </>
+        )}
       </View>
     </View>
   );
