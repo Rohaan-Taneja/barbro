@@ -5,9 +5,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login_Screen from "./src/Screens/Login_Screen";
 import Salon_details_Screen from "./src/Screens/Salon_details_Screen";
 import Header_Component from "./src/Header/Header_Component";
+import App_Entry_Screen from "./src/Screens/App_Entry_Screen";
 import Book_Appointment_Screen from "./src/Screens/Book_Appointment_Screen";
 import { Provider } from "react-redux";
 import {store} from './src/store/store'
+
 
 
 // 
@@ -20,9 +22,12 @@ export default function App() {
     <NavigationContainer>
 
       {/* this is the first route and properties given to header in this route options is applied to every route header */}
-      <Stack.Navigator initialRouteName="login" screenOptions={{headerStyle: {backgroundColor: 'black',},headerTintColor: '#999e9e',headerTitleStyle: {fontWeight: '900',}}}  >
+      <Stack.Navigator initialRouteName="who_you_are" screenOptions={{headerStyle: {backgroundColor: 'black',},headerTintColor: '#999e9e',headerTitleStyle: {fontWeight: '900',}}}  >
 
-          {/* login page route, will be called from above query */}
+         
+        <Stack.Screen name="who_you_are" component={App_Entry_Screen} options={{ headerShown: false }} />
+
+         {/* login page route, will be called from above query */}
         <Stack.Screen name="Login" component={Login_Screen} options={{ headerShown: false }} />
 
         {/* home page route , will be called from login page after authentication  */}
